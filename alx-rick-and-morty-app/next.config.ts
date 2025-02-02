@@ -1,12 +1,17 @@
-import { withSentryConfig } from '@sentry/nextjs';
+import { withSentryConfig } from "@sentry/nextjs";
 
-const moduleExports = {
+const nextConfig = {
+  // your existing Next.js configuration here, for example:
   reactStrictMode: true,
-  swcMinify: true,
 };
 
-const sentryWebpackPluginOptions = {
-  silent: true, // Suppress logs during build
-};
+export default withSentryConfig(nextConfig, {
+  org: "none-vzv",
+  project: "javascript-nextjs",
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  hideSourceMaps: true,
+  disableLogger: true,
+  automaticVercelMonitors: true,
+});
 
-module.exports = withSentryConfig(moduleExports, sentryWebpackPluginOptions);
